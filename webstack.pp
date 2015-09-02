@@ -16,26 +16,26 @@ package { 'mysql-server':
 	ensure => installed
 }
 
-$user_www_directory = "/home/${first_user}/.www"
+$user_www_directory = "/home/$::ubuntu_user/.www"
 $user_www_root = "${user_www_directory}/root"
 $user_www_conf = "${user_www_directory}/conf"
 
 file { $user_www_directory:
 	ensure => directory,
-	owner  => $first_user,
-	group  => $first_group
+	owner  => $ubuntu_user,
+	group  => $ubuntu_group
 }
 
 file { $user_www_root:
         ensure => directory,
-        owner  => $first_user,
-        group  => $first_group 
+        owner  => $ubuntu_user,
+        group  => $ubuntu_group 
 }
 
 file { $user_www_conf:
         ensure => directory,
-        owner  => $first_user,
-        group  => $first_group 
+        owner  => $ubuntu_user,
+        group  => $ubuntu_group 
 }
 
 file { '/var/www/html':
