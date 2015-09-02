@@ -2,6 +2,7 @@
 
 ```bash
 puppet module install puppetlabs-apache
+puppet module install rlenglet-debconf_package
 ```
 
 ```bash
