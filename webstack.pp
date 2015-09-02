@@ -19,7 +19,7 @@ package { 'php5':
 	ensure => installed
 }
 
-$php_extensions = ['php5-mcrypt', 'php5-intl']
+$php_extensions = ['php5-mcrypt', 'php5-intl', 'php5-mysql', 'php5-sqlite']
 
 package { $php_extensions:
 	ensure => installed,
@@ -51,6 +51,7 @@ file { $user_www_conf:
 file { '/var/www/html':
 	ensure => link,
 	target => $user_www_root,
-	require => File[$user_www_root]
+	require => File[$user_www_root],
+       force  => true
 }
 
