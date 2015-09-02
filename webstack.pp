@@ -1,6 +1,20 @@
-package { 'apache2':
-	ensure => installed
+$user_www_directory = "/home/$::ubuntu_user/.www"
+$user_www_root = "${user_www_directory}/root"
+$user_www_conf = "${user_www_directory}/conf"
+
+class { 'apache':
+	user          => $::ubuntu_user,
+	group         => $::ubuntu_group,
+	docroot       => $user_www_root,
+	mpm_module    => 'prefork',
+	manage_user   => false,
+	manage_group  => false,
+	purge_vhost_dir => false
 }
+apache::mod { 'rewrite': }
+class {'::apache::mod::php':
+}
+
 package { 'php5':
 	ensure => installed
 }
@@ -15,10 +29,6 @@ package { $php_extensions:
 package { 'mysql-server':
 	ensure => installed
 }
-
-$user_www_directory = "/home/$::ubuntu_user/.www"
-$user_www_root = "${user_www_directory}/root"
-$user_www_conf = "${user_www_directory}/conf"
 
 file { $user_www_directory:
 	ensure => directory,
