@@ -7,6 +7,7 @@ class { 'apache':
 	group         => $::ubuntu_group,
 	docroot       => $user_www_root,
 	mpm_module    => 'prefork',
+	confd_dir     => '/etc/apache2/conf-enabled',
 	manage_user   => false,
 	manage_group  => false,
 	purge_vhost_dir => false
@@ -28,6 +29,16 @@ package { $php_extensions:
 
 package { 'mysql-server':
 	ensure => installed
+}
+
+debconf_package { 'phpmyadmin':
+	ensure => present,
+	content => 'phpmyadmin      phpmyadmin/reconfigure-webserver        multiselect     apache2'
+}
+
+exec { '/usr/sbin/a2enconf phpmyadmin':
+	require => debconf_package['phpmyadmin'],
+	notify  => Class['apache']
 }
 
 file { $user_www_directory:
