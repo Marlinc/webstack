@@ -37,8 +37,8 @@ debconf_package { 'phpmyadmin':
 }
 
 exec { '/usr/sbin/a2enconf phpmyadmin':
-	require => debconf_package['phpmyadmin'],
-	notify  => Class['apache']
+	require => [debconf_package['phpmyadmin'], Class['apache']],
+	notify  => Service['apache2']
 }
 
 file { $user_www_directory:
