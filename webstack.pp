@@ -14,17 +14,18 @@ class { 'apache':
 }
 apache::mod { 'rewrite': }
 class {'::apache::mod::php':
+	php_version   => '7.0'
 }
 
-package { 'php5':
+package { 'php7.0':
 	ensure => installed
 }
 
-$php_extensions = ['php7-mcrypt', 'php7-intl', 'php7-mysql', 'php7-sqlite']
+$php_extensions = ['php7.0-mcrypt', 'php7.0-intl', 'php7.0-mysql', 'php7.0-sqlite', 'php7.0-mbstring']
 
 package { $php_extensions:
 	ensure => installed,
-	require => Package['php7']
+	require => Package['php7.0']
 }
 
 package { 'mysql-server':
