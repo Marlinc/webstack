@@ -20,11 +20,11 @@ package { 'php5':
 	ensure => installed
 }
 
-$php_extensions = ['php5-mcrypt', 'php5-intl', 'php5-mysql', 'php5-sqlite']
+$php_extensions = ['php7-mcrypt', 'php7-intl', 'php7-mysql', 'php7-sqlite']
 
 package { $php_extensions:
 	ensure => installed,
-	require => Package['php5']
+	require => Package['php7']
 }
 
 package { 'mysql-server':
